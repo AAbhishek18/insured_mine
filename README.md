@@ -1,5 +1,7 @@
 # InsuredMine Assignment
 To Run-
+
+ cd insured_mine
  
  npm i node-sass/node-modules 
  
