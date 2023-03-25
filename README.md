@@ -1,1 +1,2 @@
-# insured_mine
+# InsuredMine Assignment
+npx nodemon -run the application
