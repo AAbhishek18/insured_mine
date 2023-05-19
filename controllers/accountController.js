@@ -48,7 +48,7 @@ exports.updateAccount = async (req, res) => {
                   return res.status(400).json({ message: "Account does not exist" });
             }
             //update account details
-            account.agent = req.body.agent,
+                  account.agent = req.body.agent,
                   account.producer = req.body.producer,
                   account.company_name = req.body.company_name,
                   account.category_name = req.body.category_name,

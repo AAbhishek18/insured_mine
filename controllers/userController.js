@@ -1,50 +1,47 @@
 const userModel = require('../models/userModels');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const validator = require('express-validator');
+//const validator = require('express-validator');
 const dotenv = require('dotenv');
+const node_mailer=require('nodemailer');
 dotenv.config();
 
 //create user registration 
 exports.register = async(req, res) => {
-      const errors = validator.validationResult(req);
-      if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
-      }
+      console.log(req.body)
+      //return false
+      // const errors = validator.validationResult(req);
+      // if (!errors.isEmpty()) {
+      //       return res.status(422).json({ errors: errors.array() });
+      // }
 
-      try{
-            const user =await userModel.findOne({email:req.body.email}); 
-            if(user){
-                  return res.status(400).json({message:"Email already exists"});
-            }
+     
+            // const user =await userModel.findOne({email:req.body.email}); 
+            // if(user){
+            //       return res.status(400).json({message:"Email already exists"});
+            // }
 
             const salt = await bcrypt.genSalt(10);
             const hashPassword = await bcrypt.hash(req.body.password,salt);
-
+            
             const newUser = new userModel({ 
                   firstname:req.body.firstname,
                   email:req.body.email,
-                  phone:req.body.phone,
                   password:hashPassword,
-                  gender:req.body.gender,
-                  address:{
-                        city:req.body.city,
-                        state:req.body.state,
-                        zip:req.body.zip,
-                  },
-                  dob:req.body.dob,
-            });   
-            const savedUser = await newUser.save();
-            res.status(200).json({
+                 
+            });  
+            
+        const savedUser = await newUser.save();
+            console.log(savedUser)
+           return res.status(200).json({
                   status:true,
                   message:"User created successfully",
-                  user:savedUser
+                  data:savedUser
             });
-      }catch(err){
-            return res.status(500).json({message:"Something went wrong"});
       }
+      
 
-}
+
 
 //controller user login 
 
